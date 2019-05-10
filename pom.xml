@@ -9,10 +9,10 @@
         <relativePath/>
     </parent>
     <groupId>maya.aleph.fizzbuzz</groupId>
-    <artifactId>fizzbuzz</artifactId>
+    <artifactId>maya-fizzbuzz</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>fizzbuzz</name>
-    <description>Fizzbuzz project using Spring Boot</description>
+    <name>maya-fizzbuzz</name>
+    <description>Project showing fizzbuzz case using Spring Boot</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -23,6 +23,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -64,6 +65,13 @@
                         </configuration>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework.restdocs</groupId>
+                        <artifactId>spring-restdocs-asciidoctor</artifactId>
+                        <version>${spring-restdocs.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
