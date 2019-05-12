@@ -49,4 +49,17 @@ public class ApplicationTests {
         assertThat(fizzTypes, everyItem(is(FizzBuzzType.FIZZ)));
     }
 
+    @Test
+    public void getBuzzList_NumbersDivisibleBy5Given_ShouldReturnBuzzList() {
+        // given
+        List<Integer> divisibleBy5Only = numbers.stream().filter(Utils::isBuzz).collect(Collectors.toList());
+        // when
+        List<FizzBuzzType> fizzTypes = divisibleBy5Only.stream()
+                .map(fizzBuzzService::evalNumber)
+                .collect(Collectors.toList());
+        //then
+        assertSame(divisibleBy5Only.size(), fizzTypes.size());
+        assertThat(fizzTypes, everyItem(is(FizzBuzzType.BUZZ)));
+    }
+
 }

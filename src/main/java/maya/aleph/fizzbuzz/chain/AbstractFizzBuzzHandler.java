@@ -13,4 +13,8 @@ public abstract class AbstractFizzBuzzHandler {
 
     abstract protected FizzBuzzType handleRequest(int number);
 
+    public void setNextHandler(AbstractFizzBuzzHandler nextHandler) {
+        this.nextHandler = nextHandler;
+    }
+
 }
