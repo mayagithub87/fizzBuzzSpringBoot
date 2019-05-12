@@ -75,4 +75,17 @@ public class ApplicationTests {
         assertThat(fizzTypes, everyItem(is(FizzBuzzType.FIZZBUZZ)));
     }
 
+    @Test
+    public void getNotFizzBuzzList_NumbersDivisibleBy3And5Given_ShouldReturnNotFizzBuzzList() {
+        // given
+        List<Integer> notFizzBuzz = numbers.stream().filter(Utils::isNotFizzBuzz).collect(Collectors.toList());
+        // when
+        List<FizzBuzzType> fizzTypes = notFizzBuzz.stream()
+                .map(fizzBuzzService::evalNumber)
+                .collect(Collectors.toList());
+        //then
+        assertSame(notFizzBuzz.size(), fizzTypes.size());
+        assertThat(fizzTypes, everyItem(is(FizzBuzzType.NUMBER)));
+    }
+
 }
