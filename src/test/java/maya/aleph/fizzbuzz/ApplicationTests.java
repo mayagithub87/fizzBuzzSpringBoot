@@ -1,6 +1,6 @@
 package maya.aleph.fizzbuzz;
 
-import maya.aleph.fizzbuzz.chain.FizzBuzzHandler;
+import maya.aleph.fizzbuzz.core.FizzBuzzService;
 import maya.aleph.fizzbuzz.domain.FizzBuzzType;
 import maya.aleph.fizzbuzz.utils.Utils;
 import org.junit.BeforeClass;
@@ -24,8 +24,9 @@ import static org.junit.Assert.assertSame;
 public class ApplicationTests {
 
     private static List<Integer> numbers;
+
     @Autowired
-    private FizzBuzzHandler fizzBuzzHandlerChain;
+    private FizzBuzzService fizzBuzzService;
 
     @BeforeClass
     public static void setUp() {
@@ -41,7 +42,7 @@ public class ApplicationTests {
         List<Integer> divisibleBy3Only = numbers.stream().filter(Utils::isFizz).collect(Collectors.toList());
         // when
         List<FizzBuzzType> fizzTypes = divisibleBy3Only.stream()
-                .map(fizzBuzzHandlerChain::receiveNumber)
+                .map(fizzBuzzService::evalNumber)
                 .collect(Collectors.toList());
         //then
         assertSame(divisibleBy3Only.size(), fizzTypes.size());
