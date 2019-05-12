@@ -4,6 +4,7 @@ import maya.aleph.fizzbuzz.chain.AbstractFizzBuzzHandler;
 import maya.aleph.fizzbuzz.chain.impl.BuzzHandler;
 import maya.aleph.fizzbuzz.chain.impl.FizzBuzzHandler;
 import maya.aleph.fizzbuzz.chain.impl.FizzHandler;
+import maya.aleph.fizzbuzz.chain.impl.NumberHandler;
 import maya.aleph.fizzbuzz.domain.FizzBuzzType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,12 @@ public class FizzBuzzService {
     public FizzBuzzService(
             @Autowired FizzHandler fizzHandler,
             @Autowired BuzzHandler buzzHandler,
-            @Autowired FizzBuzzHandler fizzBuzzHandler
+            @Autowired FizzBuzzHandler fizzBuzzHandler,
+            @Autowired NumberHandler numberHandler
     ) {
         fizzHandler.setNextHandler(buzzHandler);
         buzzHandler.setNextHandler(fizzBuzzHandler);
+        fizzBuzzHandler.setNextHandler(numberHandler);
         this.handlerChain = fizzHandler;
     }
 
