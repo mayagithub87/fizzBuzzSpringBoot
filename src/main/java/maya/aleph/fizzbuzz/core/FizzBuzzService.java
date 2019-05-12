@@ -2,6 +2,7 @@ package maya.aleph.fizzbuzz.core;
 
 import maya.aleph.fizzbuzz.chain.AbstractFizzBuzzHandler;
 import maya.aleph.fizzbuzz.chain.impl.BuzzHandler;
+import maya.aleph.fizzbuzz.chain.impl.FizzBuzzHandler;
 import maya.aleph.fizzbuzz.chain.impl.FizzHandler;
 import maya.aleph.fizzbuzz.domain.FizzBuzzType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,11 @@ public class FizzBuzzService {
 
     public FizzBuzzService(
             @Autowired FizzHandler fizzHandler,
-            @Autowired BuzzHandler buzzHandler
+            @Autowired BuzzHandler buzzHandler,
+            @Autowired FizzBuzzHandler fizzBuzzHandler
     ) {
         fizzHandler.setNextHandler(buzzHandler);
+        buzzHandler.setNextHandler(fizzBuzzHandler);
         this.handlerChain = fizzHandler;
     }
 
