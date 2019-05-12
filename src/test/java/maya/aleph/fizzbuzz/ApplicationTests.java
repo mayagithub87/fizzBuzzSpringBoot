@@ -54,12 +54,12 @@ public class ApplicationTests {
         // given
         List<Integer> divisibleBy5Only = numbers.stream().filter(Utils::isBuzz).collect(Collectors.toList());
         // when
-        List<FizzBuzzType> fizzTypes = divisibleBy5Only.stream()
+        List<FizzBuzzType> buzzTypes = divisibleBy5Only.stream()
                 .map(fizzBuzzService::evalNumber)
                 .collect(Collectors.toList());
         //then
-        assertSame(divisibleBy5Only.size(), fizzTypes.size());
-        assertThat(fizzTypes, everyItem(is(FizzBuzzType.BUZZ)));
+        assertSame(divisibleBy5Only.size(), buzzTypes.size());
+        assertThat(buzzTypes, everyItem(is(FizzBuzzType.BUZZ)));
     }
 
     @Test
@@ -67,12 +67,12 @@ public class ApplicationTests {
         // given
         List<Integer> divisibleBy3And5 = numbers.stream().filter(Utils::isFizzBuzz).collect(Collectors.toList());
         // when
-        List<FizzBuzzType> fizzTypes = divisibleBy3And5.stream()
+        List<FizzBuzzType> fizzBuzzTypes = divisibleBy3And5.stream()
                 .map(fizzBuzzService::evalNumber)
                 .collect(Collectors.toList());
         //then
-        assertSame(divisibleBy3And5.size(), fizzTypes.size());
-        assertThat(fizzTypes, everyItem(is(FizzBuzzType.FIZZBUZZ)));
+        assertSame(divisibleBy3And5.size(), fizzBuzzTypes.size());
+        assertThat(fizzBuzzTypes, everyItem(is(FizzBuzzType.FIZZBUZZ)));
     }
 
     @Test
@@ -80,12 +80,12 @@ public class ApplicationTests {
         // given
         List<Integer> notFizzBuzz = numbers.stream().filter(Utils::isNotFizzBuzz).collect(Collectors.toList());
         // when
-        List<FizzBuzzType> fizzTypes = notFizzBuzz.stream()
+        List<FizzBuzzType> notFizzBuzzTypes = notFizzBuzz.stream()
                 .map(fizzBuzzService::evalNumber)
                 .collect(Collectors.toList());
         //then
-        assertSame(notFizzBuzz.size(), fizzTypes.size());
-        assertThat(fizzTypes, everyItem(is(FizzBuzzType.NUMBER)));
+        assertSame(notFizzBuzz.size(), notFizzBuzzTypes.size());
+        assertThat(notFizzBuzzTypes, everyItem(is(FizzBuzzType.NUMBER)));
     }
 
 }
