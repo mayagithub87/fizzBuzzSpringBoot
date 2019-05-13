@@ -1,51 +1,90 @@
-package maya.aleph.fizzbuzz;
+package maya.aleph.fizzbuzz.core;
 
-import maya.aleph.fizzbuzz.core.FizzBuzzService;
 import maya.aleph.fizzbuzz.domain.FizzBuzzType;
 import maya.aleph.fizzbuzz.utils.Utils;
-import org.junit.Rule;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.rule.OutputCapture;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.CoreMatchers.everyItem;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ApplicationTests {
+public class FizzBuzzServiceTests {
 
-    @Rule
-    public OutputCapture outputCapture = new OutputCapture();
-
+    private static List<Integer> numbers;
     @Autowired
     private FizzBuzzService fizzBuzzService;
 
+    @BeforeClass
+    public static void setUp() {
+        Stream<Integer> infiniteStream = Stream.iterate(1, i -> i + 1);
+        numbers = infiniteStream
+                .limit(100)
+                .collect(Collectors.toList());
+    }
+
     @Test
-    public void runMainProgram_List1To100Given_ShouldShowFizzBuzzTypePerNumber() {
+    public void getFizzList_NumbersDivisibleBy3Given_ShouldReturnFizzList() {
         // given
-        Application.main(new String[]{});
+        List<Integer> divisibleBy3Only = numbers.stream().filter(Utils::isFizz).collect(Collectors.toList());
         // when
-        outputCapture.expect(containsString("START"));
-        outputCapture.expect(containsString("END"));
-        // then
-        String standardOutput = outputCapture.toString();
-        List<String> neededLines = Arrays.asList(standardOutput.split(System.lineSeparator()));
-        neededLines.stream().filter(Utils::isLineNeeded).forEach(s -> {
-            String[] split = s.split(":");
-            int number = Integer.parseInt(split[0].trim());
-            FizzBuzzType fizzBuzzType = fizzBuzzService.evalNumber(number);
-            if (fizzBuzzType.equals(FizzBuzzType.NUMBER))
-                Assertions.assertEquals(split[1].trim(), String.valueOf(number));
-            else
-                Assertions.assertEquals(split[1].trim(), fizzBuzzType.toString());
-        });
+        List<FizzBuzzType> fizzTypes = divisibleBy3Only.stream()
+                .map(fizzBuzzService::evalNumber)
+                .collect(Collectors.toList());
+        //then
+        Assertions.assertSame(divisibleBy3Only.size(), fizzTypes.size());
+        assertThat(fizzTypes, everyItem(is(FizzBuzzType.FIZZ)));
+    }
+
+    @Test
+    public void getBuzzList_NumbersDivisibleBy5Given_ShouldReturnBuzzList() {
+        // given
+        List<Integer> divisibleBy5Only = numbers.stream().filter(Utils::isBuzz).collect(Collectors.toList());
+        // when
+        List<FizzBuzzType> buzzTypes = divisibleBy5Only.stream()
+                .map(fizzBuzzService::evalNumber)
+                .collect(Collectors.toList());
+        //then
+        Assertions.assertSame(divisibleBy5Only.size(), buzzTypes.size());
+        assertThat(buzzTypes, everyItem(is(FizzBuzzType.BUZZ)));
+    }
+
+    @Test
+    public void getFizzBuzzList_NumbersDivisibleBy3And5Given_ShouldReturnFizzBuzzList() {
+        // given
+        List<Integer> divisibleBy3And5 = numbers.stream().filter(Utils::isFizzBuzz).collect(Collectors.toList());
+        // when
+        List<FizzBuzzType> fizzBuzzTypes = divisibleBy3And5.stream()
+                .map(fizzBuzzService::evalNumber)
+                .collect(Collectors.toList());
+        //then
+        Assertions.assertSame(divisibleBy3And5.size(), fizzBuzzTypes.size());
+        assertThat(fizzBuzzTypes, everyItem(is(FizzBuzzType.FIZZBUZZ)));
+    }
+
+    @Test
+    public void getNotFizzBuzzList_NumbersDivisibleBy3And5Given_ShouldReturnNotFizzBuzzList() {
+        // given
+        List<Integer> notFizzBuzz = numbers.stream().filter(Utils::isNotFizzBuzz).collect(Collectors.toList());
+        // when
+        List<FizzBuzzType> notFizzBuzzTypes = notFizzBuzz.stream()
+                .map(fizzBuzzService::evalNumber)
+                .collect(Collectors.toList());
+        //then
+        Assertions.assertSame(notFizzBuzz.size(), notFizzBuzzTypes.size());
+        assertThat(notFizzBuzzTypes, everyItem(is(FizzBuzzType.NUMBER)));
     }
 
 }
+

@@ -1,5 +1,6 @@
-package maya.aleph.fizzbuzz;
+package maya.aleph.fizzbuzz.main;
 
+import maya.aleph.fizzbuzz.Application;
 import maya.aleph.fizzbuzz.core.FizzBuzzService;
 import maya.aleph.fizzbuzz.domain.FizzBuzzType;
 import maya.aleph.fizzbuzz.utils.Utils;
