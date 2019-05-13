@@ -8,6 +8,9 @@ public class Utils {
 
     static Logger logger = LoggerFactory.getLogger(Utils.class);
 
+    private Utils() {
+    }
+
     public static boolean isFizz(int number) {
         return (number % 3 == 0 && number % 5 != 0);
     }
