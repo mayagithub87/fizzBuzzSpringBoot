@@ -2,6 +2,8 @@ package maya.aleph.fizzbuzz;
 
 import maya.aleph.fizzbuzz.core.FizzBuzzService;
 import maya.aleph.fizzbuzz.utils.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +13,8 @@ import java.util.stream.IntStream;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
+
+    Logger logger = LoggerFactory.getLogger(Application.class);
 
     @Autowired
     private FizzBuzzService fizzBuzzService;
@@ -22,11 +26,11 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        System.out.println("START");
+        logger.info("START");
 
         IntStream.range(1, 101).forEach(i -> Utils.printLine(i, fizzBuzzService.evalNumber(i)));
 
-        System.out.println("END");
+        logger.info("END");
 
     }
 }
