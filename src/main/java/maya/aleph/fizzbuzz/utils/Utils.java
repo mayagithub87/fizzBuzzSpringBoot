@@ -1,8 +1,12 @@
 package maya.aleph.fizzbuzz.utils;
 
 import maya.aleph.fizzbuzz.domain.FizzBuzzType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Utils {
+
+    static Logger logger = LoggerFactory.getLogger(Utils.class);
 
     public static boolean isFizz(int number) {
         return (number % 3 == 0 && number % 5 != 0);
@@ -26,9 +30,9 @@ public class Utils {
 
     public static void printLine(int number, FizzBuzzType fizzBuzzType) {
         if (!fizzBuzzType.equals(FizzBuzzType.NUMBER))
-            System.out.println(String.format("%3d: %s", number, fizzBuzzType.toString()));
+            logger.info(String.format("%3d: %s", number, fizzBuzzType.toString()));
         else
-            System.out.println(String.format("%3d: %d", number, number));
+            logger.info(String.format("%3d: %d", number, number));
 
     }
 }
