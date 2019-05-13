@@ -32,10 +32,6 @@ public class Utils {
     }
 
     public static void printLine(int number, FizzBuzzType fizzBuzzType) {
-        if (!fizzBuzzType.equals(FizzBuzzType.NUMBER))
-            logger.info(String.format("%3d: %s", number, fizzBuzzType.toString()));
-        else
-            logger.info(String.format("%3d: %d", number, number));
-
+        logger.info("{}: {}", number, !fizzBuzzType.equals(FizzBuzzType.NUMBER) ? fizzBuzzType.toString() : number);
     }
 }
