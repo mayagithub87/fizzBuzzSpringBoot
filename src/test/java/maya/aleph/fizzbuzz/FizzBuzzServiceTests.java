@@ -5,6 +5,7 @@ import maya.aleph.fizzbuzz.domain.FizzBuzzType;
 import maya.aleph.fizzbuzz.utils.Utils;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +18,6 @@ import java.util.stream.Stream;
 import static org.hamcrest.CoreMatchers.everyItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertSame;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -45,7 +45,7 @@ public class FizzBuzzServiceTests {
                 .map(fizzBuzzService::evalNumber)
                 .collect(Collectors.toList());
         //then
-        assertSame(divisibleBy3Only.size(), fizzTypes.size());
+        Assertions.assertSame(divisibleBy3Only.size(), fizzTypes.size());
         assertThat(fizzTypes, everyItem(is(FizzBuzzType.FIZZ)));
     }
 
@@ -58,7 +58,7 @@ public class FizzBuzzServiceTests {
                 .map(fizzBuzzService::evalNumber)
                 .collect(Collectors.toList());
         //then
-        assertSame(divisibleBy5Only.size(), buzzTypes.size());
+        Assertions.assertSame(divisibleBy5Only.size(), buzzTypes.size());
         assertThat(buzzTypes, everyItem(is(FizzBuzzType.BUZZ)));
     }
 
@@ -71,7 +71,7 @@ public class FizzBuzzServiceTests {
                 .map(fizzBuzzService::evalNumber)
                 .collect(Collectors.toList());
         //then
-        assertSame(divisibleBy3And5.size(), fizzBuzzTypes.size());
+        Assertions.assertSame(divisibleBy3And5.size(), fizzBuzzTypes.size());
         assertThat(fizzBuzzTypes, everyItem(is(FizzBuzzType.FIZZBUZZ)));
     }
 
@@ -84,7 +84,7 @@ public class FizzBuzzServiceTests {
                 .map(fizzBuzzService::evalNumber)
                 .collect(Collectors.toList());
         //then
-        assertSame(notFizzBuzz.size(), notFizzBuzzTypes.size());
+        Assertions.assertSame(notFizzBuzz.size(), notFizzBuzzTypes.size());
         assertThat(notFizzBuzzTypes, everyItem(is(FizzBuzzType.NUMBER)));
     }
 
