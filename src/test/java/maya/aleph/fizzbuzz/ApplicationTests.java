@@ -3,9 +3,9 @@ package maya.aleph.fizzbuzz;
 import maya.aleph.fizzbuzz.core.FizzBuzzService;
 import maya.aleph.fizzbuzz.domain.FizzBuzzType;
 import maya.aleph.fizzbuzz.utils.Utils;
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,9 +42,9 @@ public class ApplicationTests {
             int number = Integer.parseInt(split[0].trim());
             FizzBuzzType fizzBuzzType = fizzBuzzService.evalNumber(number);
             if (fizzBuzzType.equals(FizzBuzzType.NUMBER))
-                Assert.assertEquals(split[1].trim(), String.valueOf(number));
+                Assertions.assertEquals(split[1].trim(), String.valueOf(number));
             else
-                Assert.assertEquals(split[1].trim(), fizzBuzzType.toString());
+                Assertions.assertEquals(split[1].trim(), fizzBuzzType.toString());
         });
     }
 
