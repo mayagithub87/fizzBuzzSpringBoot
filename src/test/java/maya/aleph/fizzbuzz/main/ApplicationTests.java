@@ -7,6 +7,7 @@ import maya.aleph.fizzbuzz.utils.ConsoleOutputUtils;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.platform.commons.util.StringUtils;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,7 +43,7 @@ public class ApplicationTests {
         // then
         String standardOutput = outputCapture.toString();
         List<String> neededLines = Arrays.asList(standardOutput.split(System.lineSeparator()));
-        neededLines.stream().filter(ConsoleOutputUtils::isLineNeeded).forEach(this::assertLine);
+        neededLines.stream().filter(StringUtils::isNotBlank).filter(ConsoleOutputUtils::isLineNeeded).forEach(this::assertLine);
     }
 
     private void assertLine(String line) {
