@@ -3,7 +3,7 @@ package maya.aleph.fizzbuzz.main;
 import maya.aleph.fizzbuzz.Application;
 import maya.aleph.fizzbuzz.core.FizzBuzzService;
 import maya.aleph.fizzbuzz.domain.FizzBuzzType;
-import maya.aleph.fizzbuzz.utils.Utils;
+import maya.aleph.fizzbuzz.utils.ConsoleOutputUtils;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -42,7 +42,7 @@ public class ApplicationTests {
         // then
         String standardOutput = outputCapture.toString();
         List<String> neededLines = Arrays.asList(standardOutput.split(System.lineSeparator()));
-        neededLines.stream().filter(Utils::isLineNeeded).forEach(this::assertLine);
+        neededLines.stream().filter(ConsoleOutputUtils::isLineNeeded).forEach(this::assertLine);
     }
 
     private void assertLine(String line) {

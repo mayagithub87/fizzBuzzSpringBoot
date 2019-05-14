@@ -3,8 +3,9 @@ package maya.aleph.fizzbuzz.chain.impl;
 import maya.aleph.fizzbuzz.chain.AbstractFizzBuzzHandler;
 import maya.aleph.fizzbuzz.chain.IFizzBuzzEvaluator;
 import maya.aleph.fizzbuzz.domain.FizzBuzzType;
-import maya.aleph.fizzbuzz.utils.Utils;
 import org.springframework.stereotype.Component;
+
+import static maya.aleph.fizzbuzz.core.FizzBuzzSpecifications.isBuzz;
 
 /**
  * Second handler in chain of responsability.
@@ -19,6 +20,6 @@ public class BuzzHandler extends AbstractFizzBuzzHandler implements IFizzBuzzEva
 
     @Override
     public FizzBuzzType evaluate(int number) {
-        return Utils.isBuzz(number) ? FizzBuzzType.BUZZ : null;
+        return isBuzz.test(number) ? FizzBuzzType.BUZZ : null;
     }
 }
