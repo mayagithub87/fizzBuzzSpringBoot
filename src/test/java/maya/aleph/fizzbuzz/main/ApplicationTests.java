@@ -30,23 +30,28 @@ public class ApplicationTests {
 
     @Test
     public void runMainProgram_List1To100Given_ShouldShowFizzBuzzTypePerNumber() {
-        // given
-        Application.main(new String[]{});
         // when
+        Application.main(new String[]{});
+        // then
+        checkConsoleOutput();
+    }
+
+    private void checkConsoleOutput() {
         outputCapture.expect(containsString("START"));
         outputCapture.expect(containsString("END"));
         // then
         String standardOutput = outputCapture.toString();
         List<String> neededLines = Arrays.asList(standardOutput.split(System.lineSeparator()));
-        neededLines.stream().filter(Utils::isLineNeeded).forEach(s -> {
-            String[] split = s.split(":");
-            int number = Integer.parseInt(split[0].trim());
-            FizzBuzzType fizzBuzzType = fizzBuzzService.evalNumber(number);
-            if (fizzBuzzType.equals(FizzBuzzType.NUMBER))
-                Assertions.assertEquals(split[1].trim(), String.valueOf(number));
-            else
-                Assertions.assertEquals(split[1].trim(), fizzBuzzType.toString());
-        });
+        neededLines.stream().filter(Utils::isLineNeeded).forEach(this::assertLine);
     }
 
+    private void assertLine(String line) {
+        String[] split = line.split(":");
+        int number = Integer.parseInt(split[0].trim());
+        FizzBuzzType fizzBuzzType = fizzBuzzService.evalNumber(number);
+        if (fizzBuzzType.equals(FizzBuzzType.NUMBER))
+            Assertions.assertEquals(split[1].trim(), String.valueOf(number));
+        else
+            Assertions.assertEquals(split[1].trim(), fizzBuzzType.toString());
+    }
 }
